@@ -1,0 +1,349 @@
+{
+	"info": {
+		"_postman_id": "06cc0bea-bdb0-4a3b-a6d9-04cafb37e15e",
+		"name": "social_network",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28667426"
+	},
+	"item": [
+		{
+			"name": "Signup User API",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\":\"aneesh@gmail.com\",\n  \"first_name\":\"aneesh\",\n  \"last_name\":\"k\",\n  \"password\":\"12345678\",\n  \"confirm_password\":\"12345678\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/signup/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"signup",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login User API",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parse the JSON response",
+							"let responseData = pm.response.json();",
+							"",
+							"// Check if the 'access' token exists in the response",
+							"if (responseData.access) {",
+							"    // Set the access token to the environment variable",
+							"    pm.environment.set(\"access_token\", responseData.access);",
+							"    ",
+							"    // Optional: Log the access token to console for verification",
+							"    console.log(\"Access Token saved:\", responseData.access);",
+							"}",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\":\"praveen@gmail.com\",\n  \"password\":\"12345678\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/login/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search API",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/search/?search=vi",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"search",
+						""
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "vi"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Send Friend Request API",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"receiver_id\" : 13\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/friend-request/send/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"friend-request",
+						"send",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Accept Friend Request",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"friend_request_id\" : 3\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/friend-request/accept/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"friend-request",
+						"accept",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reject friend request API",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"friend_request_id\" : 1\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/friend-request/reject/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"friend-request",
+						"reject",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Block User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"blocked_user_id\" : 8\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/block-user/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"block-user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unblock User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"blocked_user_id\" : 8\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/unblock-user/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"unblock-user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pending Friend Request",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/pending-friend-requests/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"pending-friend-requests",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Friends List API",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/friend-list/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"friend-list",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
